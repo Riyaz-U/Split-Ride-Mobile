@@ -51,6 +51,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.contentnegotiation)
             implementation(libs.ktor.kotlinx.serialization)
+            implementation(libs.kvault)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
