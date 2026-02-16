@@ -22,13 +22,13 @@ class StorageManager(
 
     inline fun <reified T> get(key: String): T?{
         return when{
-            T::class.isInstance(Int) -> getKVault().int(key) as Int
-            T::class.isInstance(String) -> getKVault().int(key) as String
-            T::class.isInstance(Boolean) -> getKVault().int(key) as Boolean
-            T::class.isInstance(Long) -> getKVault().int(key) as Long
-            T::class.isInstance(Float) -> getKVault().int(key) as Float
-            T::class.isInstance(Double) -> getKVault().int(key) as Double
-            T::class.isInstance(ByteArray::class) -> getKVault().int(key) as ByteArray
+            T::class.isInstance(Int) -> getKVault().int(key)
+            T::class.isInstance(String) -> getKVault().string(key)
+            T::class.isInstance(Boolean) -> getKVault().bool(key)
+            T::class.isInstance(Long) -> getKVault().long(key)
+            T::class.isInstance(Float) -> getKVault().float(key)
+            T::class.isInstance(Double) -> getKVault().double(key)
+            T::class.isInstance(ByteArray::class) -> getKVault().data(key)
             else -> return null
         } as T?
     }
