@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 
 object AppColors {
     // Brand
-    val Accent = Color(0xFF135BEC) // (19, 91, 236)
+    val Accent = Color(19, 91, 236) // (19, 91, 236)
 
     // Neutrals (light)
     val Background = Color(0xFFF8FAFC)
