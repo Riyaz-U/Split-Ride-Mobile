@@ -5,9 +5,10 @@ import kotlinx.coroutines.launch
 
 class StateUpdater(
     private val eventBus: EventBus,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    reducerScope: ReducerBuilder.() -> Unit
 ) {
-    private val reducers = mapOf<Intent, Intent.() -> Unit>()
+    private val reducers = ReducerBuilder().apply(reducerScope).build()
 
     fun processEvent(intent: Intent) {
         val reducerForIntent = reducers[intent]
@@ -22,4 +23,14 @@ class StateUpdater(
             scope.launch { eventBus.push(intent) }
         }
     }
+}
+
+class ReducerBuilder{
+    private val reducers = mutableMapOf<Intent, Intent.() -> Unit>()
+
+    fun on(intent: Intent, reducer: Intent.() -> Unit){
+        reducers[intent] = reducer
+    }
+
+    fun build(): Map<Intent, Intent.() -> Unit> = reducers
 }
