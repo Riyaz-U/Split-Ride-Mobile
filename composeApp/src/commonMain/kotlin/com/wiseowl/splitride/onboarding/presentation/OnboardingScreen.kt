@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeGesturesPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Button
@@ -70,8 +71,10 @@ fun OnboardingContent(
     ){
         Text(
             "Skip",
-            modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)
-                .clickable { onSkip() })
+            fontWeight = FontWeight.Medium,
+            color = Color(19, 91, 236),
+            modifier = Modifier.align(Alignment.TopEnd).clickable { onSkip() }.safeGesturesPadding()
+        )
         HorizontalPager(
             state = pageState
         ) { pageNo ->
