@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
+import com.wiseowl.splitride.core.theme.LightColors
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.wiseowl.splitride.core.ui.routing.EventBus
@@ -14,7 +15,9 @@ import org.koin.compose.koinInject
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MaterialTheme(
+        colorScheme = LightColors
+    ) {
         Scaffold {
             val navController = rememberNavController()
             EventListener(navController)
