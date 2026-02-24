@@ -8,4 +8,5 @@ sealed class Screen() {
 
     @Serializable
     object Settings: Screen()
+    object Onboarding: Screen()
 }
