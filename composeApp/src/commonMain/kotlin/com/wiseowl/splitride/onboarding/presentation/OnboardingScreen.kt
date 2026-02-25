@@ -52,7 +52,7 @@ fun OnboardingScreen() {
     val scope = rememberCoroutineScope()
     OnboardingContent(
         state = state,
-        onSkip = { scope.launch { eventBus.push(Navigation(Screen.Home)) } },
+        onSkip = { scope.launch { eventBus.push(CompletedOnboarding) } },
         onForward = {
             if (state.currentPage < state.pages.size - 1) state = state.copy(
                 currentPage = state.currentPage + 1
@@ -74,7 +74,7 @@ fun OnboardingContent(
             "Skip",
             fontWeight = FontWeight.Medium,
             color = Color(19, 91, 236),
-            modifier = Modifier.align(Alignment.TopEnd).clickable { onSkip() }.safeGesturesPadding()
+            modifier = Modifier.align(Alignment.TopEnd).safeGesturesPadding().clickable { onSkip() }
         )
         val page by rememberUpdatedState(state.pages[state.currentPage])
         val animation = remember(page) { AnimationState(0f) }
