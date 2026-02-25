@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wiseowl.splitride.core.ui.components.PrimaryButton
 import com.wiseowl.splitride.core.ui.models.ButtonState
+import com.wiseowl.splitride.core.ui.routing.CompletedOnboarding
 import com.wiseowl.splitride.core.ui.routing.EventBus
 import com.wiseowl.splitride.core.ui.routing.Navigation
 import com.wiseowl.splitride.core.ui.routing.Screen
@@ -55,7 +56,7 @@ fun OnboardingScreen() {
         onForward = {
             if (state.currentPage < state.pages.size - 1) state = state.copy(
                 currentPage = state.currentPage + 1
-            ) else scope.launch { eventBus.push(Navigation(Screen.Home)) }
+            ) else scope.launch { eventBus.push(CompletedOnboarding) }
         }
     )
 }
