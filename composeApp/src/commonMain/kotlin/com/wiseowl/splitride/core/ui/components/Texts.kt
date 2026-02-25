@@ -1,31 +1,116 @@
 package com.wiseowl.splitride.core.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.wiseowl.splitride.core.theme.AppColors
 import com.wiseowl.splitride.core.theme.interFontFamily
+import com.wiseowl.splitride.core.ui.models.TextState
 
+// 1. Headline Large — 36sp Bold
 @Composable
-fun Text(
-    state: String,
-    fontSize: TextUnit = 14.sp,
-    fontWeight: FontWeight = FontWeight.Normal
+fun HeadlineLarge(
+    modifier: Modifier = Modifier,
+    state: TextState
 ) {
-    Text(text = state, fontFamily = interFontFamily(), fontWeight = fontWeight, fontSize = fontSize)
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = 36.sp,
+        fontWeight = FontWeight.Bold,
+        color = state.color
+    )
 }
 
+// 2. Headline Medium — 24sp Bold
 @Composable
-fun Heading(
-    state: String
+fun HeadlineMedium(
+    modifier: Modifier = Modifier,
+    state: TextState
 ) {
-    Text(text = state, fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+        color = state.color
+    )
 }
 
+// 3. Subheading — 18sp SemiBold
 @Composable
-fun Title(
-    state: String
+fun Subheading(
+    modifier: Modifier = Modifier,
+    state: TextState
 ) {
-    Text(text = state, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        color = state.color
+    )
 }
+
+// 4. Body — 16sp Regular
+@Composable
+fun Body(
+    modifier: Modifier = Modifier,
+    state: TextState
+) {
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        color = state.color
+    )
+}
+
+// 5. Caption — 14sp Regular
+@Composable
+fun Caption(
+    modifier: Modifier = Modifier,
+    state: TextState
+) {
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        color = state.color
+    )
+}
+
+// region Previews
+
+@Preview
+@Composable
+private fun TypographyPreview() {
+    Column(
+        modifier = Modifier.background(Color.White).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        HeadlineLarge(state = TextState(text = "Headline Large", color = AppColors.TextPrimary))
+        HeadlineMedium(state = TextState(text = "Headline Medium", color = AppColors.TextPrimary))
+        Subheading(state = TextState(text = "Subheading", color = AppColors.TextPrimary))
+        Body(state = TextState(text = "Body text", color = AppColors.TextSecondary))
+        Caption(state = TextState(text = "Caption text", color = AppColors.TextMuted))
+    }
+}
+
+// endregion
