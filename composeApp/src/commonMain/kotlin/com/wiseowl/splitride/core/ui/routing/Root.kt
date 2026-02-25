@@ -5,13 +5,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.onboarding.presentation.OnboardingScreen
+import org.koin.compose.koinInject
 
 @Composable
 fun Root(
     navController: NavHostController,
-    startDestination: Screen = Screen.Home
 ){
+    val startDestination: Screen = getStartDestination()
     NavHost(
         navController = navController,
         startDestination = startDestination
@@ -20,4 +22,13 @@ fun Root(
         composable<Screen.Settings>{ Text("Settings Screen") }
         composable<Screen.Onboarding>{ OnboardingScreen() }
     }
+}
+
+@Composable
+fun getStartDestination(): Screen {
+    val userDetailStorage = koinInject<UserDetailStorage>()
+    val hasCompletedOnboarding = userDetailStorage.hasOnboardingCompleted() ?: false
+
+    return if(hasCompletedOnboarding) Screen.Home
+    else Screen.Onboarding
 }
