@@ -7,9 +7,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wiseowl.splitride.core.theme.LightColors
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.wiseowl.splitride.core.storage.UserDetailStorage
+import com.wiseowl.splitride.core.ui.routing.CompletedOnboarding
 import com.wiseowl.splitride.core.ui.routing.EventBus
 import com.wiseowl.splitride.core.ui.routing.Navigation
 import com.wiseowl.splitride.core.ui.routing.Root
+import com.wiseowl.splitride.core.ui.routing.Screen
 import org.koin.compose.koinInject
 
 @Composable
@@ -30,13 +33,18 @@ fun App() {
 fun EventListener(
     navHostController: NavHostController
 ) {
-    val eventBus: EventBus = koinInject()
+    val eventBus = koinInject<EventBus>()
+    val userDetailStorage = koinInject<UserDetailStorage>()
 
     LaunchedEffect(eventBus) {
         val channel = eventBus.subscribe()
         for (event in channel) {
             when(event){
                is Navigation -> navHostController.navigate(event.screen)
+               is CompletedOnboarding -> {
+                   userDetailStorage.markOnboardingCompleted()
+                   navHostController.navigate(Screen.Home)
+               }
             }
         }
     }
