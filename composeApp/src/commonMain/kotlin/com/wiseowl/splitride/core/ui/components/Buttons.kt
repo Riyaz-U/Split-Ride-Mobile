@@ -55,7 +55,7 @@ fun PrimaryButton(
                 color = AppColors.PrimaryDisabledContent,
                 strokeWidth = 2.dp
             )
-            Subheading(state = TextState(text = button.text, color = Color.White), modifier = Modifier.padding(start = 10.dp))
+            Subheading(state = TextState(text = button.text, color = Color.White), modifier = Modifier.padding(start = 8.dp))
         } else {
             Subheading(state = TextState(text = button.text, color = textColor))
         }
@@ -160,6 +160,7 @@ fun DestructiveButton(
                 color = Color.White,
                 strokeWidth = 2.dp
             )
+            Subheading(modifier = Modifier.padding(start = 8.dp), state = TextState(text = button.text, color = Color.White))
         } else {
             if(icon != null) {
                 Icon(
