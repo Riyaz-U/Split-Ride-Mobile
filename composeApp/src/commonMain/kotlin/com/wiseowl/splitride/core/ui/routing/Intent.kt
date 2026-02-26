@@ -16,3 +16,4 @@ open class Intent()
  * @author Riyaz Uddin
  */
 class Navigation(val screen: Screen, val params: Map<String, Any> = emptyMap()): Intent()
+object CompletedOnboarding: Intent()
