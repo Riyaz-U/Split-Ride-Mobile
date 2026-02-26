@@ -1,7 +1,7 @@
 package com.wiseowl.splitride.authentication.data.dto
 
 data class LoginResponseDTO(
-    val success: Boolean,
-    val token: String?,
-    val errorMessage: String?
+    val accessToken: String,
+    val accessTokenExpirationSec: Long,
+    val refreshToken: String
 )
