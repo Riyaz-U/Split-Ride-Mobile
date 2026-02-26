@@ -21,11 +21,8 @@ class AuthenticationRepositoryImpl(
                     "password" to password
                 )
             )
-            if (response.success) {
-                Result.success(true)
-            } else {
-                Result.failure(Exception(response.errorMessage))
-            }
+            if (response.success) Result.success(true)
+            else Result.failure(Exception(response.errorMessage))
         } catch (e: Exception) {
             Result.failure(e)
         }
