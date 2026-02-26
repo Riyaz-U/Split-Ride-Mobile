@@ -28,18 +28,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.wiseowl.splitride.core.theme.AppColors
+import com.wiseowl.splitride.core.ui.components.Body
+import com.wiseowl.splitride.core.ui.components.GhostButton
+import com.wiseowl.splitride.core.ui.components.HeadlineMedium
 import com.wiseowl.splitride.core.ui.components.PrimaryButton
 import com.wiseowl.splitride.core.ui.models.ButtonState
 import com.wiseowl.splitride.core.ui.routing.CompletedOnboarding
 import com.wiseowl.splitride.core.ui.routing.EventBus
-import com.wiseowl.splitride.core.ui.routing.Navigation
-import com.wiseowl.splitride.core.ui.routing.Screen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
@@ -68,12 +66,10 @@ fun OnboardingContent(
     onForward: () -> Unit,
 ) {
     Box(
-        Modifier.fillMaxSize().background(Color(229, 231, 235))
+        Modifier.fillMaxSize().background(AppColors.Surface)
     ) {
-        Text(
-            "Skip",
-            fontWeight = FontWeight.Medium,
-            color = Color(19, 91, 236),
+        GhostButton(
+            button = ButtonState("Skip"),
             modifier = Modifier.align(Alignment.TopEnd).safeGesturesPadding().clickable { onSkip() }
         )
         val page by rememberUpdatedState(state.pages[state.currentPage])
@@ -93,21 +89,9 @@ fun OnboardingContent(
                     modifier = Modifier.fillMaxWidth(0.8f).aspectRatio(1f)
                 )
                 Spacer(Modifier.height(32.dp))
-                Text(
-                    page.title,
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 38.sp,
-                    color = Color(19, 91, 236)
-                )
+                HeadlineMedium(state = page.title)
                 Spacer(Modifier.height(16.dp))
-                Text(
-                    page.description,
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 24.sp
-                )
+                Body(state = page.description)
                 Spacer(Modifier.height(32.dp))
                 PrimaryButton(
                     modifier = Modifier.fillMaxWidth().padding(20.dp),
