@@ -2,19 +2,21 @@ package com.wiseowl.splitride.authentication.data
 
 import com.wiseowl.splitride.authentication.data.dto.LoginResponseDTO
 import com.wiseowl.splitride.authentication.domain.AuthenticationService
+import com.wiseowl.splitride.authentication.domain.LoginResult
+import com.wiseowl.splitride.authentication.domain.RegistrationResult
 import com.wiseowl.splitride.core.network.ApiService
 import com.wiseowl.splitride.core.network.EndPoint
 import com.wiseowl.splitride.core.storage.AuthenticationStorage
 
 class AuthenticationRepositoryImpl(
     val apiService: ApiService,
-    val authenticationStorage: AuthenticationStorage
+    val authenticationStorage: AuthenticationStorage,
 ) : AuthenticationService {
 
     override suspend fun login(
         email: String,
         password: String,
-    ): Result<Boolean> {
+    ): LoginResult {
         try {
             val response = apiService.post<LoginResponseDTO, Map<String, String>>(
                 endPoint = EndPoint.Login,
@@ -29,11 +31,10 @@ class AuthenticationRepositoryImpl(
                 authenticationStorage.saveToken(accessToken)
                 authenticationStorage.saveRefreshToken(refreshToken)
 
-                return Result.success(true)
-            }
-            else return Result.failure(Exception(response.errorMessage))
+                return LoginResult.Success
+            } else return LoginResult.AuthenticationError
         } catch (e: Exception) {
-            return Result.failure(e)
+            return LoginResult.NetworkError
         }
     }
 
@@ -42,8 +43,8 @@ class AuthenticationRepositoryImpl(
         lastName: String,
         email: String,
         password: String,
-    ): Result<Boolean> {
-        return try {
+    ): RegistrationResult {
+        try {
             val response = apiService.post<Unit, Map<String, String>>(
                 endPoint = EndPoint.Register,
                 body = mapOf(
@@ -53,11 +54,9 @@ class AuthenticationRepositoryImpl(
                     "password" to password
                 )
             )
-            if (response.success) Result.success(true)
-            else Result.failure(Exception(response.errorMessage))
+            return if (response.success) RegistrationResult.Success else RegistrationResult.RegistrationError
         } catch (e: Exception) {
-            Result.failure(e)
+            return RegistrationResult.NetworkError
         }
     }
-
 }
