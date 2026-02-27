@@ -1,6 +1,8 @@
 package com.wiseowl.splitride.authentication.data
 
 import com.wiseowl.splitride.authentication.domain.AuthenticationService
+import com.wiseowl.splitride.authentication.domain.LoginResult
+import com.wiseowl.splitride.authentication.domain.RegistrationResult
 
 class FakeAuthenticationService(
     private val users: Map<String, String> = mapOf() // email to password mapping
@@ -9,11 +11,9 @@ class FakeAuthenticationService(
     override suspend fun login(
         email: String,
         password: String,
-    ): Result<Boolean> {
-        if(users.containsKey(email) && users[email] == password) {
-            return Result.success(true)
-        }
-        return Result.failure(Exception("Invalid email or password"))
+    ): LoginResult {
+        return if(users.containsKey(email) && users[email] == password) LoginResult.Success
+        else LoginResult.AuthenticationError
     }
 
     override suspend fun register(
@@ -21,10 +21,10 @@ class FakeAuthenticationService(
         lastName: String,
         email: String,
         password: String,
-    ): Result<Boolean> {
+    ): RegistrationResult {
         if(users[email] == null) {
             users.plus(email to password)
-            return Result.success(true)
-        } else return Result.failure(Exception("User with this email already exists"))
+            return RegistrationResult.Success
+        } else return RegistrationResult.RegistrationError
     }
 }

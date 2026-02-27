@@ -30,7 +30,7 @@ class LoginUseCaseTest {
         val result = loginUseCase(registeredEmail, registeredEmailsPassword)
 
         // Then
-        assertTrue(actual = result.isSuccess, message = result.exceptionOrNull()?.message)
+        assertTrue(actual = result is LoginResult.Success, message = "result is not Success, but ${result::class.simpleName}")
     }
 
     @Test
@@ -43,7 +43,7 @@ class LoginUseCaseTest {
         val result = loginUseCase(invalidEmail, registeredEmailsPassword)
 
         // Then
-        assertFalse(actual = result.isSuccess, message = result.exceptionOrNull()?.message)
+        assertTrue(actual = result is LoginResult.AuthenticationError, message = "result is not AuthenticationError, but ${result::class.simpleName}")
     }
 
     @Test
@@ -56,6 +56,6 @@ class LoginUseCaseTest {
         val result = loginUseCase(registeredEmail, invalidPassword)
 
         // Then
-        assertFalse(actual = result.isSuccess, message = result.exceptionOrNull()?.message)
+        assertFalse(actual = result is LoginResult.Success, message = "result is not Success, but ${result::class.simpleName}")
     }
 }
