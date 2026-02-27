@@ -17,5 +17,5 @@ class InputValidationUseCase {
 
 sealed class InputValidationResult{
     object Success: InputValidationResult()
-    class Failure(val invalidFields: List<Input>): InputValidationResult()
+    class Failure(val invalidInputs: List<Input>): InputValidationResult()
 }
