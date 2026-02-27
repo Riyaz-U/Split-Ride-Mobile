@@ -9,6 +9,7 @@ object InputValidator{
                 is Constraint.NonEmpty -> if(value.isEmpty()) return InputValidationResult.EMPTY
                 is Constraint.MinLength -> if(value.length < constraint.length) return InputValidationResult.TOO_SHORT
                 is Constraint.MaxLength -> if(value.length > constraint.length) return InputValidationResult.TOO_LONG
+                is Constraint.MatchRegex -> if(!Regex(constraint.regex).matches(value)) return InputValidationResult.INVALID_FORMAT
             }
         }
         return InputValidationResult.SUCCESS
@@ -18,6 +19,7 @@ object InputValidator{
         SUCCESS,
         EMPTY,
         TOO_SHORT,
-        TOO_LONG
+        TOO_LONG,
+        INVALID_FORMAT
     }
 }
