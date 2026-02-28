@@ -8,14 +8,14 @@ class InputValidationUseCase {
     operator fun invoke(
         fields: Map<Input, String>,
     ): InputValidationResult {
-        val invalidFields = fields.filter { (input, value) ->
-            InputValidator.validate(value, inputConstraints[input]!!) != InputValidator.InputValidationResult.SUCCESS
-        }
-        return if(invalidFields.isEmpty()) InputValidationResult.Failure(invalidFields.keys.toList()) else InputValidationResult.Success
+        val invalidFields = fields.map { (input, value) ->
+            input to InputValidator.validate(value, inputConstraints[input]!!)
+        }.filter { it.second != InputValidator.InputValidationResult.SUCCESS }.toMap()
+        return if(invalidFields.isNotEmpty()) InputValidationResult.Failure(invalidFields) else InputValidationResult.Success
     }
 }
 
 sealed class InputValidationResult{
     object Success: InputValidationResult()
-    class Failure(val invalidInputs: List<Input>): InputValidationResult()
+    class Failure(val invalidInputs: Map<Input, InputValidator.InputValidationResult>): InputValidationResult()
 }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.wiseowl.splitride.authentication.presentation.registration.RegistrationScreen
 import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.onboarding.presentation.OnboardingScreen
 import org.koin.compose.koinInject
@@ -21,7 +22,7 @@ fun Root(
         composable<Screen.Home> { Text("Home Screen") }
         composable<Screen.Settings>{ Text("Settings Screen") }
         composable<Screen.Onboarding>{ OnboardingScreen() }
-        composable<Screen.Registration>{ Text("Registration") }
+        composable<Screen.Registration>{ RegistrationScreen() }
     }
 }
 
