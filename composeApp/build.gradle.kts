@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -13,7 +14,11 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -52,6 +57,7 @@ kotlin {
             implementation(libs.ktor.contentnegotiation)
             implementation(libs.ktor.kotlinx.serialization)
             implementation(libs.kvault)
+            implementation(libs.navigation.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

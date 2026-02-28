@@ -6,11 +6,38 @@ import androidx.compose.ui.graphics.Color
 
 object AppColors {
     // Brand
-    val Accent = Color(0xFF135BEC) // (19, 91, 236)
+    val Primary = Color(22, 121, 230)
+    val PrimaryTint = Color(203, 221, 243)
+    val Contrast = Color(203, 221, 243)
+
+    // Status
+    val Success = Color(83, 186, 129)
+    val Error = Color(241, 75, 94)
+
+    // Disabled
+    val PrimaryDisabled = Color(162, 201, 245)
+    val PrimaryDisabledContent = Color(227, 239, 252)
+    val SecondaryContainer = Color(231, 241, 252)
+    val SecondaryDisabled = Color(218, 218, 218)
+    val SecondaryDisabledContent = Color(148, 163, 184)
+    val ErrorDisabled = Color(239, 146, 155)
+
+    // Text
+    val TextPrimary = Color(0xFF0F172A)
+    val TextSecondary = Color(0xFF334155)
+    val TextMuted = Color(0xFF94A3B8)
+
+    // Input
+    val InputBackground = Color(0xFFF8FAFC)
+    val InputFocusedBorder = Color(203, 224, 248)
+    val InputUnfocusedBorder = Color(0xFFCBD5E1)
+    val InputDisabledBorder = Color(0xFFE2E8F0)
+    val InputErrorBorder = Color(244, 151, 168)
+    val InputErrorBackground = Color(253, 241, 242)
 
     // Neutrals (light)
     val Background = Color(0xFFF8FAFC)
-    val Surface = Color(0xFFE5E7EB) // (229, 231, 235)
+    val Surface = Color(246, 247, 248)
     val SurfaceVariant = Color(0xFFF1F5F9)
 
     // Neutrals (dark)
@@ -18,40 +45,39 @@ object AppColors {
     val SurfaceDark = Color(0xFF111827)
     val SurfaceVariantDark = Color(0xFF1F2937)
 
-    // Status
-    val Error = Color(0xFFB3261E)
+    // Error containers
     val ErrorContainer = Color(0xFFF9DEDC)
     val ErrorDark = Color(0xFFF2B8B5)
     val ErrorContainerDark = Color(0xFF8C1D18)
 }
 
 val LightColors = lightColorScheme(
-    primary = AppColors.Accent,
+    primary = AppColors.Primary,
     onPrimary = Color.White,
-    primaryContainer = AppColors.Accent,
+    primaryContainer = AppColors.Primary,
     onPrimaryContainer = Color.White,
 
-    secondary = AppColors.Accent,
+    secondary = AppColors.Primary,
     onSecondary = Color.White,
     secondaryContainer = AppColors.SurfaceVariant,
-    onSecondaryContainer = Color(0xFF0F172A),
+    onSecondaryContainer = AppColors.TextPrimary,
 
-    tertiary = AppColors.Accent,
+    tertiary = AppColors.Primary,
     onTertiary = Color.White,
     tertiaryContainer = AppColors.SurfaceVariant,
-    onTertiaryContainer = Color(0xFF0F172A),
+    onTertiaryContainer = AppColors.TextPrimary,
 
     background = AppColors.Background,
-    onBackground = Color(0xFF0F172A),
+    onBackground = AppColors.TextPrimary,
 
     surface = AppColors.Surface,
-    onSurface = Color(0xFF0F172A),
+    onSurface = AppColors.TextPrimary,
 
     surfaceVariant = AppColors.SurfaceVariant,
-    onSurfaceVariant = Color(0xFF334155),
+    onSurfaceVariant = AppColors.TextSecondary,
 
-    outline = Color(0xFFCBD5E1),
-    outlineVariant = Color(0xFFE2E8F0),
+    outline = AppColors.InputUnfocusedBorder,
+    outlineVariant = AppColors.InputDisabledBorder,
 
     error = AppColors.Error,
     onError = Color.White,
@@ -62,17 +88,17 @@ val LightColors = lightColorScheme(
 )
 
 val DarkColors = darkColorScheme(
-    primary = AppColors.Accent,
+    primary = AppColors.Primary,
     onPrimary = Color.White,
-    primaryContainer = AppColors.Accent,
+    primaryContainer = AppColors.Primary,
     onPrimaryContainer = Color.White,
 
-    secondary = AppColors.Accent,
+    secondary = AppColors.Primary,
     onSecondary = Color.White,
     secondaryContainer = AppColors.SurfaceVariantDark,
     onSecondaryContainer = Color(0xFFE2E8F0),
 
-    tertiary = AppColors.Accent,
+    tertiary = AppColors.Primary,
     onTertiary = Color.White,
     tertiaryContainer = AppColors.SurfaceVariantDark,
     onTertiaryContainer = Color(0xFFE2E8F0),
