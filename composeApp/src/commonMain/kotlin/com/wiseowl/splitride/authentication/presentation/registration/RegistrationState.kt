@@ -69,7 +69,7 @@ data class RegistrationState(
     val termsAccepted: Boolean = false,
     val cta: ButtonState = ButtonState(
         text = "Create Account",
-        intent = null
+        intent = RegistrationIntent.OnClickRegister
     ),
     val alreadyHaveAccountText: SpanTextState = SpanTextState(
         spans = listOf(
@@ -79,7 +79,7 @@ data class RegistrationState(
             ),
             com.wiseowl.splitride.core.ui.models.TextSpan(
                 text = "Log in",
-                color = AppColors.TextPrimary,
+                color = AppColors.Primary,
                 intent = null, // TODO: Add navigation intent
                 weight = FontWeight.Bold
             )
