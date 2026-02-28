@@ -21,6 +21,7 @@ fun Root(
         composable<Screen.Home> { Text("Home Screen") }
         composable<Screen.Settings>{ Text("Settings Screen") }
         composable<Screen.Onboarding>{ OnboardingScreen() }
+        composable<Screen.Registration>{ Text("Registration") }
     }
 }
 
