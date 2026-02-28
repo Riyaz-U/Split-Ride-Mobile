@@ -1,11 +1,20 @@
 package com.wiseowl.splitride.core.ui.routing
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.launch
 
-class EventBus {
+class EventBusImpl: EventBus {
+    private val scope = CoroutineScope(Dispatchers.Default)
     private val channel = Channel<Intent>()
-    suspend fun push(intent: Intent){
-        channel.send(intent)
+    override fun push(intent: Intent) {
+        scope.launch { channel.send(intent) }
     }
-    fun subscribe(): Channel<Intent> = channel
+    override fun subscribe(): Channel<Intent> = channel
+}
+
+interface EventBus{
+    fun push(intent: Intent)
+    fun subscribe(): Channel<Intent>
 }
