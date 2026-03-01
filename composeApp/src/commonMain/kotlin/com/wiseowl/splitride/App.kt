@@ -67,7 +67,7 @@ fun EventHandler(
                 is Navigation -> navHostController.navigate(event.screen)
                 is CompletedOnboarding -> {
                     userDetailStorage.markOnboardingCompleted()
-                    navHostController.navigate(Screen.Registration)
+                    navHostController.navigate(Screen.Login)
                 }
                 is SnackBar -> {
                     snackBarHostState.currentSnackbarData?.dismiss()

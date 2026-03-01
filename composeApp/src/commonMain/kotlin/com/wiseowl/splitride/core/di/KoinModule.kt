@@ -3,7 +3,9 @@ package com.wiseowl.splitride.core.di
 import com.wiseowl.splitride.authentication.data.AuthenticationRepositoryImpl
 import com.wiseowl.splitride.authentication.domain.AuthenticationService
 import com.wiseowl.splitride.authentication.domain.usecase.InputValidationUseCase
+import com.wiseowl.splitride.authentication.domain.usecase.LoginUseCase
 import com.wiseowl.splitride.authentication.domain.usecase.RegistrationUseCase
+import com.wiseowl.splitride.authentication.presentation.login.LoginViewModel
 import com.wiseowl.splitride.authentication.presentation.registration.RegistrationViewModel
 import com.wiseowl.splitride.core.network.ApiService
 import com.wiseowl.splitride.core.network.interceptor.AuthInterceptor
@@ -26,9 +28,11 @@ val sharedModule = module {
     single { ApiService() }
     single { InputValidationUseCase() }
     single<AuthenticationService> { AuthenticationRepositoryImpl(get(), get()) }
+    single { LoginUseCase(get()) }
     single { RegistrationUseCase(get()) }
 
     //ViewModels
+    viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { RegistrationViewModel(get(), get(), get()) }
 }
 
