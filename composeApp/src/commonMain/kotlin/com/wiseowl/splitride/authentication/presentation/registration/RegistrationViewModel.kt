@@ -66,7 +66,7 @@ class RegistrationViewModel(
 
             setCtaLoading(true)
             if(!state.value.termsAccepted) {
-                it.processIntent(SnackBar("You must accept the terms to proceed"))
+                it.processIntent(SnackBar("You must accept the terms to proceed",null))
                 setCtaLoading(false)
                 return@on
             }
@@ -90,8 +90,8 @@ class RegistrationViewModel(
                         )
                         when (registrationResult) {
                             RegistrationResult.Success -> it.processIntent(Navigation(Screen.Home))
-                            RegistrationResult.NetworkError -> it.processIntent(SnackBar("Network error occurred. Please try again."))
-                            RegistrationResult.RegistrationError -> it.processIntent(SnackBar("Registration failed. Please check your details and try again."))
+                            RegistrationResult.NetworkError -> it.processIntent(SnackBar("Network error occurred. Please try again.", null))
+                            RegistrationResult.RegistrationError -> it.processIntent(SnackBar("Registration failed. Please check your details and try again.", null))
                         }
                         setCtaLoading(false)
                     }
