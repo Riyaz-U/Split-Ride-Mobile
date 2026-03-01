@@ -9,7 +9,7 @@ class AuthInterceptor(val authenticationStorage: AuthenticationStorage) : Interc
     override suspend fun Sender.intercept(requestBuilder: HttpRequestBuilder): HttpClientCall {
         //Attach Authentication token
         val accessToken = authenticationStorage.getToken()
-        if (accessToken != null) requestBuilder.headers["Authorization"] = accessToken
+        if (accessToken != null) requestBuilder.headers["Authorization"] = "Bearer $accessToken"
         val originalCall = execute(requestBuilder)
         return if (originalCall.response.status.value == 401) originalCall
         else originalCall

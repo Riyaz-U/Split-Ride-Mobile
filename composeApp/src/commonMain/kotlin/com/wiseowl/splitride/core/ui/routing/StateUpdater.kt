@@ -6,7 +6,8 @@ class StateUpdater(
 ) {
     private val reducers = ReducerBuilder().apply(reducerScope).build()
 
-    fun processIntent(intent: Intent) {
+    fun processIntent(intent: Intent?) {
+        if(intent==null) return
         val reducerHolder = reducers[intent::class.qualifiedName]
         if (reducerHolder != null) {
             reducerHolder.reducer.invoke(intent, this)
