@@ -11,4 +11,7 @@ sealed class Screen() {
 
     @Serializable
     object Onboarding: Screen()
+
+    @Serializable
+    object Registration: Screen()
 }

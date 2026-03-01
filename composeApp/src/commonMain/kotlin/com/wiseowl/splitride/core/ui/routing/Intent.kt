@@ -16,4 +16,5 @@ open class Intent()
  * @author Riyaz Uddin
  */
 class Navigation(val screen: Screen, val params: Map<String, Any> = emptyMap()): Intent()
+class SnackBar(val text: String, val action: Intent? = null, val actionLabel: String? = null, val stateUpdater: StateUpdater? = null): Intent()
 object CompletedOnboarding: Intent()
