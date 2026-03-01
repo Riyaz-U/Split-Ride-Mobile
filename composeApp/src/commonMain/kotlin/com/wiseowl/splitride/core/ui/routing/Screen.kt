@@ -13,5 +13,8 @@ sealed class Screen() {
     object Onboarding: Screen()
 
     @Serializable
+    object Login: Screen()
+
+    @Serializable
     object Registration: Screen()
 }
