@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wiseowl.splitride.core.theme.AppColors
 import com.wiseowl.splitride.core.theme.interFontFamily
+import com.wiseowl.splitride.core.ui.LocalStateUpdater
 import com.wiseowl.splitride.core.ui.models.SpanTextState
 import com.wiseowl.splitride.core.ui.models.TextSpan
 import com.wiseowl.splitride.core.ui.models.TextState
@@ -111,6 +112,7 @@ fun SpanText(
     modifier: Modifier = Modifier,
     state: SpanTextState
 ) {
+    val stateUpdater = LocalStateUpdater.current
     Text(
         text = buildAnnotatedString {
             var spanStart = 0
@@ -136,7 +138,7 @@ fun SpanText(
                                 focusedStyle = spanStyle
                             )
                         ) {
-                            //TODO: Handle click using some reducer holder
+                            stateUpdater.processIntent(span.intent)
                         },
                         start = spanStart,
                         end = spanEnd
