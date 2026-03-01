@@ -1,7 +1,7 @@
 package com.wiseowl.splitride.core.network
 
+import com.wiseowl.splitride.core.network.interceptor.Interceptor
 import com.wiseowl.splitride.core.network.interceptor.addInterceptor
-import com.wiseowl.splitride.core.network.interceptor.authInterceptor
 import com.wiseowl.splitride.core.network.response.SplitRideResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -15,7 +15,7 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class ApiService {
+class ApiService(authInterceptor: Interceptor) {
     private val BASE_URL = ""
     private val client = HttpClient {
         install(ContentNegotiation) {
