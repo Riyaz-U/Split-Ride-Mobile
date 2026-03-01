@@ -55,12 +55,12 @@ fun LoginScreen() {
                     PrimaryInputField(state = state.password){
                         stateUpdater.processIntent(LoginIntent.OnChangePassword(it))
                     }
-                    Spacer(Modifier.height(32.dp))
                     Spacer(Modifier.height(40.dp))
-                    PrimaryButton(modifier = Modifier.fillMaxWidth(), button = state.cta){
-                        stateUpdater.processIntent(LoginIntent.OnClickLogin)
-                    }
-                    Spacer(Modifier.height(32.dp))
+                    PrimaryButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        button = state.cta
+                    ){ stateUpdater.processIntent(LoginIntent.OnClickLogin) }
+                    Spacer(Modifier.height(20.dp))
                     SpanText(modifier = Modifier.align(Alignment.CenterHorizontally), state = state.createAccountNote)
                 }
             }
