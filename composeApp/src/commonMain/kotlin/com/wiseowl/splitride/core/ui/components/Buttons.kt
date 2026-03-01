@@ -49,7 +49,7 @@ fun PrimaryButton(
         enabled = !isDisabled,
         onClick = {
             if(onClick!=null) onClick()
-            stateUpdater.processIntent(button.intent)
+            stateUpdater?.processIntent(button.intent)
         },
     ){
         if(button.isLoading) {

@@ -138,7 +138,7 @@ fun SpanText(
                                 focusedStyle = spanStyle
                             )
                         ) {
-                            stateUpdater.processIntent(span.intent)
+                            stateUpdater?.processIntent(span.intent)
                         },
                         start = spanStart,
                         end = spanEnd
