@@ -9,6 +9,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -21,6 +22,7 @@ import com.wiseowl.splitride.core.ui.routing.Navigation
 import com.wiseowl.splitride.core.ui.routing.Root
 import com.wiseowl.splitride.core.ui.routing.Screen
 import com.wiseowl.splitride.core.ui.routing.SnackBar
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
 @Composable
@@ -35,25 +37,28 @@ fun App() {
                 SnackbarHost(snackBarHostState){
                     Snackbar(
                         it,
-                        containerColor = AppColors.SecondaryContainer
+                        containerColor = AppColors.SecondaryContainer,
+                        contentColor = AppColors.TextPrimary,
+                        actionColor = AppColors.Primary
                     )
                 }
             }
         ) {
             val navController = rememberNavController()
-            EventListener(navController, snackBarHostState)
+            EventHandler(navController, snackBarHostState)
             Root(navController)
         }
     }
 }
 
 @Composable
-fun EventListener(
+fun EventHandler(
     navHostController: NavHostController,
     snackBarHostState: SnackbarHostState,
 ) {
     val eventBus = koinInject<EventBus>()
     val userDetailStorage = koinInject<UserDetailStorage>()
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(eventBus) {
         val channel = eventBus.subscribe()
@@ -66,10 +71,12 @@ fun EventListener(
                 }
                 is SnackBar -> {
                     snackBarHostState.currentSnackbarData?.dismiss()
-                    val result = snackBarHostState.showSnackbar(message = event.text, actionLabel = event.actionLabel)
-                    when(result){
-                        SnackbarResult.Dismissed -> Unit
-                        SnackbarResult.ActionPerformed -> event.action?.let { event.stateUpdater?.processIntent(it) }
+                    scope.launch {
+                        val result = snackBarHostState.showSnackbar(message = event.text, actionLabel = event.action?.label)
+                        when(result){
+                            SnackbarResult.Dismissed -> Unit
+                            SnackbarResult.ActionPerformed -> event.action?.let { event.action.stateUpdater.processIntent(event.action.intent) }
+                        }
                     }
                 }
             }
