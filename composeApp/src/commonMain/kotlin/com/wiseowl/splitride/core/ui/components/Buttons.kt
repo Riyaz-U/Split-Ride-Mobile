@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.wiseowl.splitride.core.ui.models.ButtonState
 import com.wiseowl.splitride.core.ui.models.TextState
 import com.wiseowl.splitride.core.theme.AppColors
+import com.wiseowl.splitride.core.ui.LocalStateUpdater
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -35,6 +36,7 @@ fun PrimaryButton(
 ){
     val isDisabled = !button.enabled || button.isLoading
     val textColor = if (isDisabled) AppColors.PrimaryDisabledContent else Color.White
+    val stateUpdater = LocalStateUpdater.current
 
     Button(
         modifier = modifier,
@@ -46,7 +48,8 @@ fun PrimaryButton(
         shapes = ButtonDefaults.shapes(shape = RoundedCornerShape(12.dp)),
         enabled = !isDisabled,
         onClick = {
-            if(onClick!=null) onClick() else { /** Handle using some reducer holder */ }
+            if(onClick!=null) onClick()
+            stateUpdater.processIntent(button.intent)
         },
     ){
         if(button.isLoading) {
