@@ -15,6 +15,7 @@ import com.wiseowl.splitride.core.storage.StorageManager
 import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.core.ui.routing.EventBus
 import com.wiseowl.splitride.core.ui.routing.EventBusImpl
+import com.wiseowl.splitride.ride.home.presentation.HomeViewModel
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +26,7 @@ val sharedModule = module {
     single { UserDetailStorage(get()) }
     single<EventBus> { EventBusImpl() }
     single<Interceptor> { AuthInterceptor(get()) }
-    single { ApiService() }
+    single { ApiService(get()) }
     single { InputValidationUseCase() }
     single<AuthenticationService> { AuthenticationRepositoryImpl(get(), get()) }
     single { LoginUseCase(get()) }
@@ -34,6 +35,7 @@ val sharedModule = module {
     //ViewModels
     viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { RegistrationViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get()) }
 }
 
 expect val platformModule: Module
