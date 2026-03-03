@@ -15,6 +15,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wiseowl.splitride.core.theme.AppColors
@@ -102,6 +103,24 @@ fun Caption(
         fontFamily = interFontFamily(),
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
+        color = state.color
+    )
+}
+
+// 5. Text — 14sp Regular
+@Composable
+fun Text(
+    state: TextState,
+    modifier: Modifier = Modifier,
+    size: TextUnit = 14.sp,
+    weight: FontWeight = FontWeight.Normal
+) {
+    Text(
+        text = state.text,
+        modifier = modifier,
+        fontFamily = interFontFamily(),
+        fontSize = size,
+        fontWeight = weight,
         color = state.color
     )
 }
