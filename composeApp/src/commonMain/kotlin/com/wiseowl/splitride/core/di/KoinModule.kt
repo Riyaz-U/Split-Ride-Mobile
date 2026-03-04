@@ -15,6 +15,7 @@ import com.wiseowl.splitride.core.storage.StorageManager
 import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.core.ui.routing.EventBus
 import com.wiseowl.splitride.core.ui.routing.EventBusImpl
+import com.wiseowl.splitride.ride.create_intent.presentation.CreateIntentViewModel
 import com.wiseowl.splitride.ride.home.data.HomeRepositoryImpl
 import com.wiseowl.splitride.ride.home.domain.HomeRepository
 import com.wiseowl.splitride.ride.home.presentation.HomeViewModel
@@ -39,6 +40,7 @@ val sharedModule = module {
     viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { RegistrationViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { CreateIntentViewModel(get()) }
 }
 
 expect val platformModule: Module
