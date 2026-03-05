@@ -5,6 +5,6 @@ import com.wiseowl.splitride.core.ui.models.TextState
 
 data class ScheduleState(
     val title: TextState = TextState("Schedule"),
-    val date: InputFieldState = InputFieldState(label = "Date"),
-    val time: InputFieldState = InputFieldState(label = "Time"),
+    val date: InputFieldState = InputFieldState(label = "Date", placeholder = "Select Date"),
+    val time: InputFieldState = InputFieldState(label = "Time", placeholder = "Select Time"),
 )
