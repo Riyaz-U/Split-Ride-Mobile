@@ -17,4 +17,7 @@ sealed class Screen() {
 
     @Serializable
     object Registration: Screen()
+
+    @Serializable
+    object CreateIntent: Screen()
 }

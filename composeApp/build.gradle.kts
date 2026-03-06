@@ -59,6 +59,7 @@ kotlin {
             implementation(libs.ktor.kotlinx.serialization)
             implementation(libs.kvault)
             implementation(libs.navigation.compose)
+            implementation(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

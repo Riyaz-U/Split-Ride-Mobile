@@ -10,6 +10,7 @@ import com.wiseowl.splitride.authentication.presentation.registration.Registrati
 import com.wiseowl.splitride.core.storage.AuthenticationStorage
 import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.onboarding.presentation.OnboardingScreen
+import com.wiseowl.splitride.ride.create_intent.presentation.CreateIntentScreen
 import com.wiseowl.splitride.ride.home.presentation.HomeScreen
 import org.koin.compose.koinInject
 
@@ -27,6 +28,7 @@ fun Root(
         composable<Screen.Onboarding>{ OnboardingScreen() }
         composable<Screen.Login>{ LoginScreen() }
         composable<Screen.Registration>{ RegistrationScreen() }
+        composable<Screen.CreateIntent>{ CreateIntentScreen() }
     }
 }
 
