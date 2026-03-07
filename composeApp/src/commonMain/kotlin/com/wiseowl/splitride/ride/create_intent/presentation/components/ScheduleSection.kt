@@ -25,7 +25,7 @@ fun ScheduleSection(
         Row {
             TimePicker(modifier = Modifier.weight(1f), state = state.time)
             Spacer(Modifier.width(16.dp))
-            DatePickerDocked(modifier = Modifier.weight(1f), state = state.time)
+            DatePickerDocked(modifier = Modifier.weight(1f), state = state.date)
         }
     }
 }
