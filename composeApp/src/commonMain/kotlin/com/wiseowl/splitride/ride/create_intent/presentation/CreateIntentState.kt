@@ -1,5 +1,6 @@
 package com.wiseowl.splitride.ride.create_intent.presentation
 
+import com.wiseowl.splitride.core.ui.models.ButtonState
 import com.wiseowl.splitride.ride.create_intent.presentation.models.OptionPreferenceState
 import com.wiseowl.splitride.ride.create_intent.presentation.models.RouteDetailsState
 import com.wiseowl.splitride.ride.create_intent.presentation.models.ScheduleState
@@ -7,5 +8,6 @@ import com.wiseowl.splitride.ride.create_intent.presentation.models.ScheduleStat
 data class CreateIntentState(
     val routeDetails: RouteDetailsState = RouteDetailsState(),
     val schedule: ScheduleState = ScheduleState(),
-    val preferenceState: OptionPreferenceState = OptionPreferenceState()
+    val preferenceState: OptionPreferenceState = OptionPreferenceState(),
+    val cta: ButtonState = ButtonState("Create Intent", intent = CreateIntent.OnClickCreateIntent)
 )
