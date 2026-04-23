@@ -44,8 +44,13 @@ fun CreateIntentScreen(
                 Spacer(Modifier.height(24.dp))
                 Preferences(state = state.preferenceState)
             }
-            PrimaryButton(modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth().background(
-                AppColors.Surface).padding(16.dp), button = state.cta)
+            PrimaryButton(
+                modifier = Modifier.align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .background(AppColors.Surface)
+                    .padding(16.dp),
+                button = state.cta
+            )
         }
     }
 }

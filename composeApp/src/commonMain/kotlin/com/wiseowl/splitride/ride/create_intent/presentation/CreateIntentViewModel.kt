@@ -78,7 +78,8 @@ class CreateIntentViewModel(
             }
         }
         on<CreateIntent.OnClickCreateIntent> {
-            it.processIntent(SnackBar("Not Implemented", null))
+
+        //it.processIntent(SnackBar("Not Implemented", null))
         }
     }
 }
