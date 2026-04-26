@@ -15,6 +15,10 @@ import com.wiseowl.splitride.core.storage.StorageManager
 import com.wiseowl.splitride.core.storage.UserDetailStorage
 import com.wiseowl.splitride.core.ui.routing.EventBus
 import com.wiseowl.splitride.core.ui.routing.EventBusImpl
+import com.wiseowl.splitride.ride.common.data.RideRepositoryImpl
+import com.wiseowl.splitride.ride.common.domain.RideRepository
+import com.wiseowl.splitride.ride.create_intent.data.PlacesRepositoryImpl
+import com.wiseowl.splitride.ride.create_intent.domain.PlacesRepository
 import com.wiseowl.splitride.ride.create_intent.presentation.CreateIntentViewModel
 import com.wiseowl.splitride.ride.home.data.HomeRepositoryImpl
 import com.wiseowl.splitride.ride.home.domain.HomeRepository
@@ -35,12 +39,14 @@ val sharedModule = module {
     single { LoginUseCase(get()) }
     single { RegistrationUseCase(get()) }
     single<HomeRepository> { HomeRepositoryImpl(get(), get()) }
+    single<RideRepository> { RideRepositoryImpl(get()) }
+    single<PlacesRepository> { PlacesRepositoryImpl(apiKey = "YOUR_GOOGLE_MAPS_API_KEY") }
 
     //ViewModels
     viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { RegistrationViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get(), get()) }
-    viewModel { CreateIntentViewModel(get()) }
+    viewModel { CreateIntentViewModel(get(), get(), get()) }
 }
 
 expect val platformModule: Module

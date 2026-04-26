@@ -1,21 +1,24 @@
 package com.wiseowl.splitride.ride.common.domain
 
 import com.wiseowl.splitride.ride.common.domain.model.RideIntent
+import com.wiseowl.splitride.ride.common.domain.model.ScheduleType
+import com.wiseowl.splitride.ride.common.domain.model.Status
 import kotlin.time.Instant
 
 interface RideRepository {
-    fun createRideIntent(
+    suspend fun scheduleRideIntentSearch(
         sourceLat: Double,
         sourceLng: Double,
         destinationLat: Double,
         destinationLng: Double,
-        startTime: Instant,  // ISO format
+        scheduleType: ScheduleType,
+        startTime: Instant? = null,
         flexibleMinutes: Int
     ): CreateRideIntentResult
 
-    fun checkRideIntentStatus(
-        rideIntentId: String
-    ): CreateRideIntentResult
+    suspend fun checkRideIntentStatus(
+        rideIntentId: Long
+    ): RideIntentStatusResult
 }
 
 sealed class CreateRideIntentResult{
@@ -24,4 +27,11 @@ sealed class CreateRideIntentResult{
     object NetworkError: CreateRideIntentResult()
     object AuthenticationError: CreateRideIntentResult()
     object UnknownError: CreateRideIntentResult()
+}
+
+sealed class RideIntentStatusResult{
+    data class Success(val status: Status): RideIntentStatusResult()
+    object NetworkError: RideIntentStatusResult()
+    object AuthenticationError: RideIntentStatusResult()
+    object UnknownError: RideIntentStatusResult()
 }

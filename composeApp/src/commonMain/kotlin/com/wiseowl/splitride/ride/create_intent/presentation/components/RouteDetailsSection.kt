@@ -10,7 +10,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.wiseowl.splitride.core.ui.LocalStateUpdater
-import com.wiseowl.splitride.core.ui.components.PrimaryInputField
 import com.wiseowl.splitride.core.ui.components.Text
 import com.wiseowl.splitride.ride.create_intent.presentation.CreateIntent
 import com.wiseowl.splitride.ride.create_intent.presentation.models.RouteDetailsState
@@ -25,12 +24,16 @@ fun RouteDetailsSection(
     Column(modifier) {
         Text(state = state.title, size = 18.sp, weight = FontWeight.Bold)
         Spacer(Modifier.height(16.dp))
-        PrimaryInputField(state = state.origin){
-            stateUpdater?.processIntent(CreateIntent.OnChangeStartLocation(it))
-        }
+        LocationAutocompleteField(
+            state = state.origin,
+            onValueChange = { stateUpdater?.processIntent(CreateIntent.OnChangeStartLocation(it)) },
+            onSuggestionSelected = { stateUpdater?.processIntent(CreateIntent.OnSelectOriginSuggestion(it)) }
+        )
         Spacer(Modifier.height(16.dp))
-        PrimaryInputField(state = state.destination){
-            stateUpdater?.processIntent(CreateIntent.OnChangeDestination(it))
-        }
+        LocationAutocompleteField(
+            state = state.destination,
+            onValueChange = { stateUpdater?.processIntent(CreateIntent.OnChangeDestination(it)) },
+            onSuggestionSelected = { stateUpdater?.processIntent(CreateIntent.OnSelectDestinationSuggestion(it)) }
+        )
     }
 }
