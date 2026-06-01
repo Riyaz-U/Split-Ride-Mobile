@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeGesturesPadding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wiseowl.splitride.core.theme.AppColors
+import com.wiseowl.splitride.core.ui.LocalStateUpdater
 import com.wiseowl.splitride.core.ui.components.Body
 import com.wiseowl.splitride.core.ui.components.GhostButton
 import com.wiseowl.splitride.core.ui.components.HeadlineMedium
@@ -38,6 +39,8 @@ import com.wiseowl.splitride.core.ui.components.PrimaryButton
 import com.wiseowl.splitride.core.ui.models.ButtonState
 import com.wiseowl.splitride.core.ui.routing.CompletedOnboarding
 import com.wiseowl.splitride.core.ui.routing.EventBus
+import com.wiseowl.splitride.core.ui.routing.Intent
+import com.wiseowl.splitride.core.ui.routing.StateUpdater
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
@@ -48,15 +51,20 @@ fun OnboardingScreen() {
     var state by remember { mutableStateOf(OnboardingState()) }
     val eventBus = koinInject<EventBus>()
     val scope = rememberCoroutineScope()
-    OnboardingContent(
-        state = state,
-        onSkip = { scope.launch { eventBus.push(CompletedOnboarding) } },
-        onForward = {
-            if (state.currentPage < state.pages.size - 1) state = state.copy(
-                currentPage = state.currentPage + 1
-            ) else scope.launch { eventBus.push(CompletedOnboarding) }
-        }
-    )
+    val stateUpdater = StateUpdater(eventBus){  }
+    CompositionLocalProvider(
+        LocalStateUpdater provides stateUpdater
+    ){
+        OnboardingContent(
+            state = state,
+            onSkip = { scope.launch { eventBus.push(CompletedOnboarding) } },
+            onForward = {
+                if (state.currentPage < state.pages.size - 1) state = state.copy(
+                    currentPage = state.currentPage + 1
+                ) else scope.launch { eventBus.push(CompletedOnboarding) }
+            }
+        )
+    }
 }
 
 @Composable
